@@ -1,0 +1,2 @@
+class MonthHistoryController < ApplicationController
+end

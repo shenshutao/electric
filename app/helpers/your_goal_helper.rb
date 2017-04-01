@@ -1,0 +1,2 @@
+module YourGoalHelper
+end

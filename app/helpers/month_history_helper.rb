@@ -1,0 +1,2 @@
+module MonthHistoryHelper
+end

@@ -1,0 +1,2 @@
+class WeekHistoryController < ApplicationController
+end
