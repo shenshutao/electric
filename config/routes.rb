@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'onetime_login/index'
   get 'onetime_login/logout'
-
+  get 'usages/newest'
   get 'welcome/index'
   get 'week_history/index'
   get 'month_history/index'

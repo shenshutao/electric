@@ -10,13 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316072913) do
+ActiveRecord::Schema.define(version: 20170406130511) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "usages", force: :cascade do |t|
+    t.string   "feedId"
+    t.datetime "timestamp"
+    t.integer  "power"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "feedId"
+    t.string   "apiKey"
+    t.string   "passwordKey"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

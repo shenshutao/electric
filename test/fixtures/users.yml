@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  feedId: MyString
+  apiKey: MyString
+  passwordKey: MyString
+
+two:
+  feedId: MyString
+  apiKey: MyString
+  passwordKey: MyString
