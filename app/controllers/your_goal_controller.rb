@@ -1,6 +1,6 @@
 class YourGoalController < ApplicationController
     def index
-        if session[:current_user_id] != "123"
+        if session[:current_user_id] == "0"
             render :text => "You haven't log in."
         end
     end

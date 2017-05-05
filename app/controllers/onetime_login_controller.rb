@@ -1,13 +1,14 @@
 class OnetimeLoginController < ApplicationController
   def index
-    #Rails.logger.debug("My object: #{@some_object.inspect}")
-    #abort params[:whatevs].inspect
-    Rails.logger.debug("Hello! debug")
-    if params[:tempkey] == "0cc175b9c0f1b6a831c399e269772661"
-      Rails.logger.debug("Yes")
-      session[:current_user_id] = "123"
+    # Login with a passwordKey in the URL
+    user = User.where("passwordKey = ?", params[:tempkey])
+    if user.length >= 1
+      # Successfully logged in.
+      session[:current_user_id] = user[0]['feedId']
+      session[:user_group] = user[0]['groupNum']
+      redirect_to '/welcome/index'
     else
-      Rails.logger.debug("No")
+      render :text=>"Incorrect addresss. To login your account, please use the correct address assigned to you. Thanks."
     end
   end
   def logout

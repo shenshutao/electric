@@ -38,18 +38,13 @@
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
+                                        More
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="/">Action</a>
+                                        <li><a href="/week_history/index">Weekly Usage</a>
                                         </li>
-                                        <li><a href="/">Another action</a>
-                                        </li>
-                                        <li><a href="/">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="/">Separated link</a>
+                                        <li><a href="/month_history/index">Monthly Usage</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -57,9 +52,8 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="flot-chart">
-                                <div class="flot-chart-content" id="flot-line-chart-moving"></div>
-                            </div>
+                            <i id="current-usage-spinner" aria-hidden="true" class="fa fa-spinner fa-spin" style="font-size:60px;"></i>
+                            <div id="morris-area-chart" style="display:none;"></div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -96,38 +90,21 @@
                                             <thead>
                                                 <tr>
                                                     <th>Date</th>
-                                                    <th>Amount</th>
+                                                    <th>kWh</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>03/21/2017</td>
-                                                    <td>$321.33</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>03/22/2017</td>
-                                                    <td>$234.34</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>03/23/2017</td>
-                                                    <td>$724.17</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>03/24/2017</td>
-                                                    <td>$23.71</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>03/25/2017</td>
-                                                    <td>$8345.23</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>03/26/2017</td>
-                                                    <td>$245.12</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>03/27/2017</td>
-                                                    <td>$5663.54</td>
-                                                </tr>
+
+                                                <% @usage.each do |usage| %>
+                                                    <tr>
+                                                        <td>
+                                                            <%= usage.date %>
+                                                        </td>
+                                                        <td>
+                                                            <%= usage.kwh %>
+                                                        </td>
+                                                    </tr>
+                                                    <% end %>
                                             </tbody>
                                         </table>
                                     </div>
@@ -135,7 +112,8 @@
                                 </div>
                                 <!-- /.col-lg-4 (nested) -->
                                 <div class="col-lg-8">
-                                    <div id="morris-bar-chart"></div>
+                                    <i id="last-7-spinner" aria-hidden="true" class="fa fa-spinner fa-spin" style="font-size:60px;"></i>
+                                    <div id="last7days-chart"></div>
                                 </div>
                                 <!-- /.col-lg-8 (nested) -->
                             </div>

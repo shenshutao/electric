@@ -1,2 +1,3 @@
 class Usage < ApplicationRecord
+    
 end

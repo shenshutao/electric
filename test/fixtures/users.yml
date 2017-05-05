@@ -4,8 +4,20 @@ one:
   feedId: MyString
   apiKey: MyString
   passwordKey: MyString
+  price: 1.5
+  groupNum: MyString
+  goal: 1.5
+  lastname: MyString
+  whatsapp: MyString
+  email: MyString
 
 two:
   feedId: MyString
   apiKey: MyString
   passwordKey: MyString
+  price: 1.5
+  groupNum: MyString
+  goal: 1.5
+  lastname: MyString
+  whatsapp: MyString
+  email: MyString

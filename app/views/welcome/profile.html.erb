@@ -1,0 +1,56 @@
+<div id="wrapper">
+    <%= render "shared/NavMenu" %>
+
+    <div id="page-wrapper">
+        <div style = "height: 30px;">
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-info fa-fw"></i> User Profile
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                    <div class="col-lg-6">
+                    <form role="form">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                            <% @user.each do |user| %>
+                                                <label> Feed Id </label>
+                                                <input class="form-control"  type="text" placeholder= "<%= user.feedId %>" disabled>
+                                                <label> API Key </label>
+                                                <input class="form-control"  type="text" placeholder= "<%= user.apiKey %>" disabled>
+                                                <label> passwordKey </label>
+                                                <input class="form-control"  type="text" placeholder= "<%= user.passwordKey %>" disabled>
+                                                <label> price </label>
+                                                <input class="form-control"  type="text" placeholder= "<%= user.price %>" disabled>
+                                                <label> group </label>
+                                                <input class="form-control"  type="text" placeholder= "<%= user.groupNum %>" disabled>
+                                                <label> lastname </label>
+                                                <input class="form-control"  type="text" placeholder= "<%= user.lastname %>" disabled>
+                                                <label> whatsapp </label>
+                                                <input class="form-control"  type="text" placeholder= "<%= user.whatsapp %>" disabled>
+                                                <label> email </label>
+                                                <input class="form-control"  type="text" placeholder= "<%= user.email %>" disabled>
+                                            <% end %>
+                                            </div>
+                                            
+                                        </fieldset>
+                                    </form>
+                    </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                
+            </div>
+            <!-- /.col-lg-8 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /page-wrapper -->
+
+</div>
+<!-- /wrapper -->

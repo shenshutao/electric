@@ -1,0 +1,4 @@
+id,feedId,apiKey,price(cent/kwh),group,goal,lastname,whatsapp,email
+1,142561308,VsQsSKI16vHspWRk3mOgHIxXSOza85t6tLywqWBLmefeCv8G,0.2139,group1,37.5,Tony,81166837,zhendong@gmail.com
+2,172967243,o6QEoTNHnxtXTWA19eX6YuoLDTiE49WJmCtQ8nLEQlILr3bJ,0.2139,group2,30,Mike,11111111,test@test.com
+3,458165108,G8qOdIKnIP650v8R8FhSNuTQiAABf9KOjQ6DNpba3MlxPGFd,0.2139,group3,40,Mayun,22222222,test2@test.com
