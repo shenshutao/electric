@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'onetime_login/index'
+  get 'onetime_login/goal'
   get 'onetime_login/logout'
   get 'usages/newest'
   get 'usages/newestday'

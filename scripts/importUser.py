@@ -6,7 +6,8 @@ import string
 def randStr(N):
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
-conn = sqlite3.connect('../db/development.sqlite3')
+#conn = sqlite3.connect('../db/development.sqlite3')
+conn = sqlite3.connect('../db/production.sqlite3')
 c = conn.cursor()
 
 f = open('users.csv')

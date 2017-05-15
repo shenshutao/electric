@@ -2,7 +2,8 @@ import sqlite3
 import datetime
 import random
 
-conn = sqlite3.connect('../db/development.sqlite3')
+#conn = sqlite3.connect('../db/development.sqlite3')
+conn = sqlite3.connect('../db/production.sqlite3')
 c = conn.cursor()
 
 # Feed some random number into the database

@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `$(function() {
-    if ($(location).attr('pathname') != '/your_goal/index') return;
+    //if ($(location).attr('pathname') != '/your_goal/index') return;
 
     $.get("/usages/weeklyConsume", function(data) {
         var jsonObj = JSON.parse(data);
@@ -17,9 +17,9 @@
             lineWidth: 1,
             postUnits: "kWh",
             hideHover: 'false',
-            goals: [30],
+            goals: [42, 50],
             goalStrokeWidth: 2,
-            goalLineColors: ['#FF0000'],
+            goalLineColors: ['#FF0000', '#00FF00'],
             resize: true
         });
         // Set the visibility of the graph to visible after loaded.
@@ -29,12 +29,8 @@
         $("#week-goal-chart").css("display", "block");
         // TODO: BUG, if no resize, then not consistent.
         $("#week-goal-chart").resize();
-/*
-        $.get("/usages/newest", function(data) {
-            var newest = JSON.parse(data);
-            newest = newest.replace(/T/g," ");
-            newest = newest.replace(/Z/g, "");
-            
-        });*/
+
+        jsonObj = jsonObj.slice(0, jsonObj.length - 1);
+        console.log(jsonObj);
     });
 });`
