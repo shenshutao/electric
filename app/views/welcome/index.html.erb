@@ -10,7 +10,7 @@
 
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
                             <div class="row">
@@ -34,8 +34,30 @@
                     <!--panel-->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Current Electricity Usage (Hourly)
+                            
+                            <button type="button" class="btn btn-default btn-circle"><i class="fa fa-angle-left"></i>
+                            </button>
+
+                            
+                            Power (May 18, 2017 00:00 - 12:00)
                             <div class="pull-right">
+                            <button type="button" class="btn btn-default btn-circle"><i class="fa fa-angle-right"></i>
+                            </button>
+                            </div>
+                           
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <i id="current-usage-spinner" aria-hidden="true" class="fa fa-spinner fa-spin" style="font-size:60px;"></i>
+                            <div id="morris-area-chart" style="display:none;"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Your Cost in Past 7 Days
+                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                                         More
@@ -49,19 +71,6 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <i id="current-usage-spinner" aria-hidden="true" class="fa fa-spinner fa-spin" style="font-size:60px;"></i>
-                            <div id="morris-area-chart" style="display:none;"></div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Your Cost in Past 7 Days
-                            
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -104,64 +113,6 @@
                         <!-- /.panel-body -->
                     </div>
                 </div>
-                <!-- /.col-lg-8 -->
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Tips
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a href="/" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> Wear the right clothes. Dress for the temperature.
-                                    <!--span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span-->
-                                </a>
-                                <a href="/" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Turn heaters and coolers off when you don't need them.
-                                </a>
-                                <a href="/" class="list-group-item">
-                                    <i class="fa fa-envelope fa-fw"></i> Run your fridge efficiently.
-                                </a>
-                                <a href="/" class="list-group-item">
-                                    <i class="fa fa-tasks fa-fw"></i> Shut doors and close curtains
-                                </a>
-                                <a href="/" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Wash clothes using cold water
-                                </a>
-                                <a href="/" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Insulate your roof
-                                </a>
-                                <a href="/" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Save energy in the kitchen
-                                </a>
-                                <a href="/" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Use energy-efficient light globes
-                                </a>
-                                <a href="/" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Set your thermostat
-                                </a>
-                            </div>
-                            <!-- /.list-group -->
-                            <a href="/" class="btn btn-default btn-block">View All Tips</a>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Consume In A Day
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-donut-chart"></div>
-                            <a href="/" class="btn btn-default btn-block">View Details</a>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel .chat-panel -->
-                </div>
-                <!-- /.col-lg-4 -->
             </div>
             <!-- /.row -->
         </div>
