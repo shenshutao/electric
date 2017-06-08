@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'usages/dailyConsume'
   get 'usages/weeklyConsume'
   get 'usages/last7days'
+  get 'usages/peroid'
   get 'welcome/index'
   get 'welcome/profile'
   get 'week_history/index'

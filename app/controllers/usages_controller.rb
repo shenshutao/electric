@@ -35,8 +35,9 @@ class UsagesController < ApplicationController
         render :text => usage.to_json
     end
 
+    # https://localhost/usages/peroid?startdate=&enddate=
     def peroid
-        usage = Usage.where("feedId = ? and timestamp >= ? and timestamp < ?", session[:current_user_id], params['startdate'] + ' 00:00:00', params['enddate'] + ' 00:00:00')
+        usage = Usage.where("feedId = ? and timestamp >= ? and timestamp < ?", session[:current_user_id], params['startdate'], params['enddate'])
         render :text => usage.to_json
     end
 end

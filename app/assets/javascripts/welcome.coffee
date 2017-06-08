@@ -3,21 +3,30 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 `$(function() {
+    var today;
+    // When press the 'previous button', buttonCount += 1, while press the 'next button', buttonCount -= 1.
+    var buttonCount = 0;
+    var displayTime;
+
     function dateAdd(date, interval, units) {
-    var ret = new Date(date); //don't change original date
-    var checkRollover = function() { if(ret.getDate() != date.getDate()) ret.setDate(0);};
-    switch(interval.toLowerCase()) {
-        case 'year'   :  ret.setFullYear(ret.getFullYear() + units); checkRollover();  break;
-        case 'quarter':  ret.setMonth(ret.getMonth() + 3*units); checkRollover();  break;
-        case 'month'  :  ret.setMonth(ret.getMonth() + units); checkRollover();  break;
-        case 'week'   :  ret.setDate(ret.getDate() + 7*units);  break;
-        case 'day'    :  ret.setDate(ret.getDate() + units);  break;
-        case 'hour'   :  ret.setTime(ret.getTime() + units*3600000);  break;
-        case 'minute' :  ret.setTime(ret.getTime() + units*60000);  break;
-        case 'second' :  ret.setTime(ret.getTime() + units*1000);  break;
-        default       :  ret = undefined;  break;
+        var ret = new Date(date); //don't change original date
+        var checkRollover = function() { if(ret.getDate() != date.getDate()) ret.setDate(0);};
+        switch(interval.toLowerCase()) {
+            case 'year'   :  ret.setFullYear(ret.getFullYear() + units); checkRollover();  break;
+            case 'quarter':  ret.setMonth(ret.getMonth() + 3*units); checkRollover();  break;
+            case 'month'  :  ret.setMonth(ret.getMonth() + units); checkRollover();  break;
+            case 'week'   :  ret.setDate(ret.getDate() + 7*units);  break;
+            case 'day'    :  ret.setDate(ret.getDate() + units);  break;
+            case 'hour'   :  ret.setTime(ret.getTime() + units*3600000);  break;
+            case 'minute' :  ret.setTime(ret.getTime() + units*60000);  break;
+            case 'second' :  ret.setTime(ret.getTime() + units*1000);  break;
+            default       :  ret = undefined;  break;
+        }
+        return ret;
     }
-    return ret;
+
+    function dateToString(date) {
+        return date.getFullYear() + "-" + ((date.getMonth() + 1) < 10 ? ("0" + (date.getMonth() + 1)):(date.getMonth() + 1)) + "-" + ((date.getDate()) < 10 ? ("0" + date.getDate()):(date.getDate())) + "%20" + date.toLocaleTimeString('en-US', {hour12:false});
     }
 
     if ($(location).attr('pathname') != '/' && $(location).attr('pathname') != '/welcom/index') return;
@@ -31,19 +40,29 @@
             document.getElementById("welcome_index_current_value").innerHTML = data + " W";
     });
     
+    function initGraph() {
+    $('#button-next').hide();
     $.get("/usages/newestday", function(data) {
         // Convert ISO-8601 formate datetime to normal datetime: 2017-04-06T00:01:01.000Z => 2017-04-06 00:01:01.000
         graphData = JSON.parse(data);
         console.log(graphData.length);
+        // Get the last data point time.
         var D1 = new Date(graphData[graphData.length-1]['timestamp']);
+        today = D1;
+        displayTime = D1;
         console.log(D1.toISOString());
         var hourNum = parseInt(D1.toISOString().slice(11,13));
+        // Fill up the data with empty points.
+        // if 00:00 - 12:00 AM
         if (0 < hourNum && hourNum < 12) {
             while (parseInt(D1.toISOString().slice(11, 13)) < 12) {
                 D1 = dateAdd(D1, 'minute', 5);
                 console.log(D1.toISOString());
                 graphData.push({power:null, timestamp:D1.toISOString()});
             }
+            displayTime.setHours(0);
+            displayTime.setMinutes(0);
+            displayTime.setSeconds(0);
         } else {
             // 12 <= hourNum && hourNum <= 23
             while (parseInt(D1.toISOString().slice(11, 13)) != 0) {
@@ -51,6 +70,9 @@
                 console.log(D1.toISOString());
                 graphData.push({power:null, timestamp:D1.toISOString()});
             }
+            displayTime.setHours(12);
+            displayTime.setMinutes(0);
+            displayTime.setSeconds(0);
         }
         // Keep the last 12h data in the array. 12h * 12 = 144, every hour has 12 records.
         graphData = graphData.slice(graphData.length - 145, graphData.length);
@@ -81,7 +103,8 @@
         $("#morris-area-chart").resize();
 
     });
-
+    }
+    initGraph();
     // Get the data and update the graph.
     function myTimer() {
         $.get("/usages/newest", function(data) {
@@ -118,6 +141,49 @@
         $("#last7days-chart").css("display", "block");
         // TODO: BUG, if no resize, then not consistent.
         $("#last7days-chart").resize();
+    });
+
+    $("#button-previous").click(function() {
+        $('#button-next').show();
+        // The displayTime represtents the time point of the left most point on the graph.
+        displayTime = dateAdd(displayTime, 'hour', -12);
+        buttonCount++;
+        $.get("/usages/peroid?startdate=" + dateToString(displayTime) + "&enddate=" + dateToString(dateAdd(displayTime, 'hour', 12)), function(data) {
+            if (data.length == 2) {
+                // data is a string '[]' returned by server, length == 2 means no data.
+                // No more data at this time peroid.
+                displayTime = dateAdd(displayTime, 'hour', 12);
+                alert("No more data before this time peroid.");
+                return;
+            }
+            data = data.replace(/T/g," ");
+            data = data.replace(/Z/g, "");
+            var jsonObj = JSON.parse(data);
+            curUseGraph.setData(jsonObj);
+        });
+    });
+    $("#button-next").click(function() {
+        displayTime = dateAdd(displayTime, 'hour', 12);
+        buttonCount--;
+        $.get("/usages/peroid?startdate=" + dateToString(displayTime) + "&enddate=" + dateToString(dateAdd(displayTime, 'hour', 12)), function(data) {
+            console.log(data);
+            data = data.replace(/T/g," ");
+            data = data.replace(/Z/g, "");
+            var jsonObj = JSON.parse(data);
+            if (buttonCount == 0) {
+                var D1 = new Date(jsonObj[jsonObj.length-1]['timestamp']);
+                while (jsonObj.length < 144) {
+                    D1 = dateAdd(D1, 'minute', 5);
+                    jsonObj.push({power:null, timestamp:D1.toISOString()});
+                }
+            }
+            curUseGraph.setData(jsonObj);
+        });
+
+        if (buttonCount == 0) {
+            // Hide the Next button.
+            $('#button-next').hide();
+        }
     });
 });`
 
