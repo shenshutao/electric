@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'usages/peroid'
   get 'welcome/index'
   get 'welcome/profile'
+  get 'welcome/statusinfo'
   get 'week_history/index'
   get 'month_history/index'
   get 'feedback/index'

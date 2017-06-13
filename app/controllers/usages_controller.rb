@@ -26,8 +26,9 @@ class UsagesController < ApplicationController
     end
 
     def weeklyConsume
+        goal = User.where("feedId = ?", session[:current_user_id]).select("goal, groupNum");
         usage = Usage.where("feedId = ?", session[:current_user_id]).select("strftime('%W', timestamp) as week, sum(power) / 12 / 1000  as kwh").group("strftime('%W', timestamp)");
-        render :text => usage.to_json
+        render :text => {"goal":goal[0]["goal"], "groupNum":goal[0]["groupNum"],  "usage":usage}.to_json
     end
 
     def last7days

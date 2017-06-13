@@ -18,12 +18,13 @@
                                     <i class="fa fa-bolt fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div id="welcome_index_current_value" class="huge">33.25 w</div>
-                                    <div>Your current usage is too high.</div>
+                                    <i id="usage-text-spinner" aria-hidden="true" class="fa fa-spinner fa-spin" style="font-size:28px;"></i>
+                                    <div id="welcome_index_current_value" class="huge"></div>
+                                    <div id="usage-status"></div>
                                 </div>
                             </div>
                         </div>
-                        <a href="/">
+                        <a href="/welcome/statusinfo">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -37,7 +38,7 @@
                             
                             <button id="button-previous" type="button" class="btn btn-default btn-circle"><i class="fa fa-angle-left"></i>
                             </button>
-                            Power (00:00 - 12:00, May 18, 2017)
+                            <span id="power-graph-title"><strong>Power</strong></span>
                             <div class="pull-right">
                             <button id="button-next" type="button" class="btn btn-default btn-circle"><i class="fa fa-angle-right"></i>
                             </button>
