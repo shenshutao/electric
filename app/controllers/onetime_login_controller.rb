@@ -8,7 +8,7 @@ class OnetimeLoginController < ApplicationController
       session[:user_group] = user[0]['groupNum']
       redirect_to '/welcome/index'
     else
-      render :text=>"Incorrect addresss. To login your account, please use the correct address assigned to you. Thanks."
+      render plain: "Incorrect addresss. To login your account, please use the correct address assigned to you. Thanks."
     end
   end
 
@@ -21,7 +21,7 @@ class OnetimeLoginController < ApplicationController
       session[:user_group] = user[0]['groupNum']
       redirect_to '/your_goal/index?result=5'
     else
-      render :text=>"Incorrect addresss. To login your account, please use the correct address assigned to you. Thanks."
+      render plain: "Incorrect addresss. To login your account, please use the correct address assigned to you. Thanks."
     end
   end
 

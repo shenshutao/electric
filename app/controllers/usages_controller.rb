@@ -1,9 +1,9 @@
 class UsagesController < ApplicationController
     def newest
         #@usage = Usage.all()
-        #render :text => @usage[@usage.size - 1].power
+        #render plain:  @usage[@usage.size - 1].power
         usage = Usage.where("feedId = ?", session[:current_user_id]).last
-        render :text => usage.to_json
+        render plain:  usage.to_json
     end
     
     def newestday
@@ -15,30 +15,43 @@ class UsagesController < ApplicationController
         usage = Usage.where("feedId = ?", session[:current_user_id]).last(144)
         #puts "hello world"
         #puts @usage
-        render :text => usage.to_json
+        render plain:  usage.to_json
     end
 
     def dailyConsume
         #select strftime('%Y-%m-%d', timestamp), avg(power) from usages group by strftime('%Y-%m-%d', timestamp);
         # Return the power consume every day in unit of (kWh)
         usage = Usage.where("feedId = ?", session[:current_user_id]).select("date(timestamp) as date, sum(power) / 12 / 1000  as kwh").group("date(timestamp)");
-        render :text => usage.to_json
+        render plain:  usage.to_json
     end
 
     def weeklyConsume
         goal = User.where("feedId = ?", session[:current_user_id]).select("goal, groupNum");
         usage = Usage.where("feedId = ?", session[:current_user_id]).select("strftime('%W', timestamp) as week, sum(power) / 12 / 1000  as kwh").group("strftime('%W', timestamp)");
-        render :text => {"goal":goal[0]["goal"], "groupNum":goal[0]["groupNum"],  "usage":usage}.to_json
+        render plain: {"goal":goal[0]["goal"], "groupNum":goal[0]["groupNum"],  "usage":usage}.to_json
     end
 
     def last7days
         usage = Usage.where("feedId = ?", session[:current_user_id]).select("date(timestamp) as date, sum(power) / 12 / 1000  as kwh").group("date(timestamp)").last(7);
-        render :text => usage.to_json
+        render plain:  usage.to_json
     end
 
     # https://localhost/usages/peroid?startdate=&enddate=
     def peroid
         usage = Usage.where("feedId = ? and timestamp >= ? and timestamp < ?", session[:current_user_id], params['startdate'], params['enddate'])
-        render :text => usage.to_json
+        render plain:  usage.to_json
+    end
+
+    def hourAve
+        usage = Usage.where("feedId = ?", session[:current_user_id]).select("strftime('%H', timestamp) as hour, sum(power) / 12 / 1000  as kwh").group("strftime('%H', timestamp)");
+        render plain: usage.to_json
+
+    end
+
+    def allrecords
+        power = Usage.where("feedId = ?", session[:current_user_id]).select("timestamp, power");
+        usage = Usage.where("feedId = ?", session[:current_user_id]).select("date(timestamp) as date, sum(power) / 12 / 1000  as kwh").group("date(timestamp)");
+        # TODO: NOT CORRECT!!! NEED to be changed when using non-fake data, here since the first data point is extremly large, we discard it.
+        render plain: {"power":power[1..power.length], "usage":usage}.to_json
     end
 end

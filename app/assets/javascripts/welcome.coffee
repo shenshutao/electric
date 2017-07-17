@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 `$(function() {
+
+
+
     var today;
     // When press the 'previous button', buttonCount += 1, while press the 'next button', buttonCount -= 1.
     var buttonCount = 0;
@@ -29,10 +32,61 @@
         return date.getFullYear() + "-" + ((date.getMonth() + 1) < 10 ? ("0" + (date.getMonth() + 1)):(date.getMonth() + 1)) + "-" + ((date.getDate()) < 10 ? ("0" + date.getDate()):(date.getDate())) + " " + date.toLocaleTimeString('en-US', {hour12:false});
     }
 
-    if ($(location).attr('pathname') != '/' && $(location).attr('pathname') != '/welcom/index') return;
+    if ($(location).attr('pathname') == '/welcome/powerdetail') {
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                defaultDate: "4/30/2017 00:01",
+                format : 'DD/MM/YYYY HH:mm'
+            });
+            $('#datetimepicker2').datetimepicker({
+                defaultDate: "5/1/2017 00:01",
+                format : 'DD/MM/YYYY HH:mm'
+            });
+        });
+
+        var firstTimeClick = 1;
+        $("#day-query-button").click(function() {
+            $("#power-detail-spinner").show();
+            $.get("/usages/peroid?startdate=" + dateToString($("#datetimepicker1").data("DateTimePicker").date().toDate()) + "&enddate=" + dateToString(dateAdd($("#datetimepicker1").data("DateTimePicker").date().toDate(), 'hour', 24)), function(data) {
+            data = data.replace(/T/g," ");
+            data = data.replace(/Z/g, "");
+            var jsonObj = JSON.parse(data);
+            console.log(jsonObj);
+
+            if (firstTimeClick == 1) {
+                firstTimeClick = 0;
+                curUseGraph = Morris.Line({
+                    element: 'power-detail-graph', 
+                    data: jsonObj,
+                    xkey: 'timestamp',
+                    ykeys: ['power'],
+                    labels: ['power'],
+                    pointSize: 0,
+                    lineWidth: 2,
+                    postUnits: "W",
+                    hideHover: 'auto',
+                    resize: true
+                });
+                // Set the visibility of the graph to visible after loaded.
+                
+                $("#power-detail-spinner").hide();
+                $("#power-detail-graph").css("display", "block");
+                // TODO: BUG, if no resize, then not consistent.
+                $("#power-detail-graph").resize();
+            } else {
+                curUseGraph.setData(jsonObj);
+                $("#power-detail-graph").resize();
+                $("#power-detail-spinner").hide();
+            }
+        });
+        });
+    }
+
+    if ($(location).attr('pathname') != '/' && $(location).attr('pathname') != '/welcome/index') return;
     // The graph instance.
     var curUseGraph;
     var graphData;
+
 
     // Set every 10s refresh the graph.
     var myVar = setInterval(myTimer, 10000);
@@ -103,7 +157,7 @@
             $("#morris-area-chart").css("display", "block");
             // TODO: BUG, if no resize, then not consistent.
             $("#morris-area-chart").resize();
-            $("#power-graph-title").html("<strong>Power ( </strong>" + dateToString(displayTime) + " <strong>to</strong> " + dateToString(dateAdd(displayTime, 'hour', 12)) + "<strong> )</strong>");
+            //$("#power-graph-title").html("<strong>Power ( </strong>" + dateToString(displayTime) + " <strong>to</strong> " + dateToString(dateAdd(displayTime, 'hour', 12)) + "<strong> )</strong>");
         });
     }
     initGraph();

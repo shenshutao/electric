@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `$(function() {
-    //if ($(location).attr('pathname') != '/your_goal/index') return;
+    if ($(location).attr('pathname') != '/your_goal/index') return;
 
     // functino achieveGoal and moneyAmount refers to the A1, A2, A3 feedbacks in PPT, which give the result of whether achieved goal or not.
     // baseline: the ave of first two weeks.
@@ -124,19 +124,40 @@
         }
     }
 
+    // Attention! Since the website will only be used in 2017, we set the default value to 2017.
+    function getDateOfISOWeek(w, y=2017) {
+        var simple = new Date(y, 0, 1 + (w - 1) * 7);
+        var dow = simple.getDay();
+        var ISOweekStart = simple;
+        if (dow <= 4)
+            ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+        else
+            ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+        return ISOweekStart;
+    }
+
     $.get("/usages/weeklyConsume", function(data) {
         var jsonObj = JSON.parse(data);
         var goal = jsonObj['goal'], groupNum = jsonObj['groupNum'];
+        var startDate = [];
         jsonObj = jsonObj['usage'];
-        jsonObj[0]['week'] = "pre-week1";
-        jsonObj[1]['week'] = "pre-week2";
+        for (var i = 0; i < jsonObj.length; i++) {
+            startDate.push(getDateOfISOWeek(parseInt(jsonObj[i]['week'])));
+        }
+        console.log(startDate);
+        jsonObj[0]['week'] = "Pre-week1";
+        jsonObj[1]['week'] = "Pre-week2";
         var pw1_consume = jsonObj[0]['kwh'];
         var pw2_consume = jsonObj[1]['kwh'];
         var baseline = (pw1_consume + pw2_consume) / 2;
         $("#baseline-legend").text("Baseline: " + baseline.toFixed(2) + " kWh");
         $("#goal-legend").text("Goal: " + ((1 - goal) * baseline).toFixed(2) + " kWh (%" + (goal * 100).toFixed(2) + ")");
         for (var i = 2; i < jsonObj.length; i++) {
-            jsonObj[i]['week'] = "week" + (i - 1);
+            jsonObj[i]['week'] = "Week" + (i - 1);
+        }
+        // Append the start date of a week in the array.
+        for (var i = 0; i < jsonObj.length; i++) {
+            jsonObj[i]['week'] = jsonObj[i]['week'] + "\n(from " + startDate[i].toString().slice(4, 10) + ")";
         }
         curUseGraph = Morris.Bar({
             element: 'week-goal-chart', 
@@ -149,16 +170,22 @@
             lineWidth: 1,
             postUnits: "kWh",
             hideHover: 'false',
+            gridTextSize: 8,
             goals: [(1 - goal) * baseline, baseline],
             goalStrokeWidth: 2,
             goalLineColors: ['#FF0000', '#00FF00'],
             resize: true,
             xLabelAngle: 30,
+            padding: 50,
             barColors: function (row, series, type) {
-                if(row.label == "pre-week1" || row.label == "pre-week2") return "#b3b3b3";
+                if(row.label.indexOf("Pre-week1") != -1 || row.label.indexOf("Pre-week2") != -1) return "#b3b3b3";
                 else return "#0c64a0";
             }
         });
+        // After graph, delete the date after week.
+        for (var i = 0; i < jsonObj.length; i++) {
+            jsonObj[i]['week'] = jsonObj[i]['week'].split('\n')[0];
+        }
         // Set the visibility of the graph to visible after loaded.
         // $("#morris-area-chart").css("display", "block");
         
@@ -168,13 +195,14 @@
         $("#week-goal-chart").resize();
 
         //jsonObj = jsonObj.slice(0, jsonObj.length - 1);
-        console.log(jsonObj);
 
         function listenOnDropdown(i, real, group, week) {
             $("#button-" + jsonObj[i]['week']).click(function() {
                 $('#history-heading').html("Result of " + jsonObj[i]['week']);
                 //TODO: set the text of description. and the logic of % values.
                 $('#history-content').text(achieveGoal(baseline, goal, real) + " " + moneyAmount(baseline, goal, real, group, week));
+                $('#history-content').append(' <a tabindex="0" href="#" data-toggle="popover" title="Disclaimer" data-content="All information and data contained in this report is based on individual household energy consumption, personal preferences, research articles, and market conditions, individual experience and research literature and it is subject to change. It is for your reference only."><sup>[</sup> * <sup>]</sup></a>');
+                $('[data-toggle="popover"]').popover({placement: 'bottom', trigger: 'click', container: 'body'});
             });
         }
 
@@ -185,7 +213,9 @@
 
         // initial the history content to the latest week.
         $('#history-heading').html("Result of " + jsonObj[jsonObj.length - 1]['week']);
-        $('#history-content').text(achieveGoal(baseline, goal, jsonObj[jsonObj.length - 1]['kwh']) + " " + moneyAmount(baseline, goal, jsonObj[jsonObj.length - 1]['kwh'], groupNum, jsonObj[jsonObj.length - 1]['week']));
+        $('#history-content').text(achieveGoal(baseline, goal, jsonObj[jsonObj.length - 1]['kwh']) + " " + moneyAmount(baseline, goal, jsonObj[jsonObj.length - 1]['kwh'], groupNum, jsonObj[jsonObj.length - 1]['week'][4]));
+        $('#history-content').append(' <a tabindex="0" href="#" data-toggle="popover" title="Disclaimer" data-content="All information and data contained in this report is based on individual household energy consumption, personal preferences, research articles, and market conditions, individual experience and research literature and it is subject to change. It is for your reference only."><sup>[</sup> * <sup>]</sup></a>');
+        $('[data-toggle="popover"]').popover({placement: 'bottom', trigger: 'click', container: 'body'});
     });
 
     

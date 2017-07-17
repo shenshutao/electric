@@ -1,0 +1,213 @@
+<div id="wrapper">
+    <%= render "adminofsystem/NavMenu" %>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12 col-md-6">
+                    <h1 class="page-header">Saving Percentage</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <label> Groups </label>
+                        </div>
+                        <div class="col">
+                            <div class="btn-toolbar" role="toolbar" data-toggle="buttons">
+                                <div class="btn-group" >
+                                    <label class="btn btn-default active" id="option1">
+                                    <input type="radio" name="options" autocomplete="off"> All
+                                    </label>
+                                </div>
+
+                                <div class="btn-group">
+                                    <label class="btn btn-default" id="option2">
+                                    <input type="radio" name="options" autocomplete="off"> Money
+                                    </label>
+                                    <label class="btn btn-default" id="option3">
+                                    <input type="radio" name="options" autocomplete="off" > Health
+                                    </label>
+                                    <label class="btn btn-default" id="option4">
+                                    <input type="radio" name="options" autocomplete="off"> Environment 
+                                    </label>
+                                </div>
+
+                                <div class="btn-group">
+                                    <label class="btn btn-default" id="option5">
+                                    <input type="radio" name="options"  autocomplete="off"> Comparison
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    </br>
+
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <label> Weeks </label>
+                        </div>
+                        <div class="col">
+                           <div class="btn-toolbar" role="toolbar" data-toggle="buttons">
+                                <div class="btn-group" role="group" aria-label="1">
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> pre-1
+                                    </label>
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> pre-2
+                                    </label>
+                                </div>
+
+                                <div class="btn-group" role="group" aria-label="1">
+                                    <label class="btn btn-default active">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> week 1 
+                                    </label>
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> week 2 
+                                    </label>
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> week 3 
+                                    </label>
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> week 4 
+                                    </label>
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> week 5 
+                                    </label>
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> week 6 
+                                    </label>
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> week 7 
+                                    </label>
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> week 8 
+                                    </label>
+                                    <label class="btn btn-default">
+                                    <input type="radio" name="options" id="option1" autocomplete="off"> week 9 
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </br>
+                    </br>
+                    <div id="chart-all-user" style="min-width: 310px; max-width: 850px; height:7000px; margin: 0 auto">
+                    </div>
+                    <div id="comparison" class="row">
+                        <div class="col-lg-4">
+                            <div id="chart-m-comp" style="min-width: 300px; max-width: 300px; height:7000px; margin: 0 auto"></div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div id="chart-h-comp" style="min-width: 300px; max-width: 300px; height:7000px; margin: 0 auto"></div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div id="chart-e-comp" style="min-width: 300px; max-width: 300px; height:7000px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /page-wrapper -->
+            <script type="text/javascript">
+                
+                var categories = [];
+                var usages = [];
+                var fakeuserid = 100001;
+                var left = [], right = [];
+                function init() {
+                    for (var i = 0; i < 500; i++) {
+                        categories.push('ID:' + (fakeuserid + i));
+                        usages.push(Math.random() * 20 - 10);
+                    }
+                    usages.sort(function (a, b) {
+                        return b - a;
+                    });
+                    
+                    for (var i = 0; i < 500; i++) {
+                        if (usages[i] >= 0) {
+                            right.push(usages[i]);
+                            left.push(0);
+                        } else {
+                            left.push(usages[i]);
+                            right.push(0);
+                        }
+                    }
+                }
+                function draw(divname, chartname) {
+                    $(document).ready(function () {
+                        Highcharts.chart(divname, {
+                            chart: {
+                                type: 'bar',
+                                spacingLeft: 0
+                            },
+                            title: {
+                                text: chartname
+                            },
+                            subtitle: {
+                                text: 'Sorted from the best to the worst.'
+                            },
+                            xAxis: [{
+                                categories: categories,
+                                reversed: false,
+                                labels: {
+                                    step: 1
+                                }
+                            }],
+                            yAxis: {
+                                title: {
+                                    text: null
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return Math.abs(this.value) + '%';
+                                    }
+                                },
+                                max: 10,
+                                min: -10
+                            },
+                            plotOptions: {
+                                series: {
+                                    stacking: 'normal'
+                                }
+                            },
+                            tooltip: {
+                                formatter: function () {
+                                    return '<b>' + this.point.category +
+                                        '</b><br/>' + Highcharts.numberFormat(this.point
+                                            .y, 3) + '% (' + this.series.name + ')';
+                                }
+                            },
+                            series: [{
+                                name: 'Less',
+                                data: left
+                            }, {
+                                name: 'More',
+                                data: right
+                            }]
+                        });
+                    });
+                }
+                init();
+                draw('chart-all-user', 'All User');
+                draw('chart-m-comp', 'Money Group');
+                draw('chart-h-comp', 'Health Group');
+                draw('chart-e-comp', 'Environment Group');
+                $("#comparison").hide();
+
+                $("#option1").click(function() {
+                    $("#comparison").hide();
+                    $("#chart-all-user").css("display", "block");
+                });
+                $("#option5").click(function() {
+                    $("#comparison").css("display", "block");
+                    $("#chart-all-user").hide();
+                });
+            </script>
+        </div>
+        <!-- /wrapper -->

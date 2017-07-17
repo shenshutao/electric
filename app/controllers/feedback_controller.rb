@@ -1,7 +1,7 @@
 class FeedbackController < ApplicationController
   def index
     if session[:current_user_id].nil?
-        render :text => "You haven't log in."
+        render plain:  "You haven't log in."
     end
   end
 end
