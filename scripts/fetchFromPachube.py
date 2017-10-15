@@ -35,7 +35,7 @@ def fetchOnePerson(feedId, apiKey, last, conn):
     if d != last:
         print feedId, d, current_value
         #logfile.write(feedId + " " + d.strftime('%Y%m%d %H:%M:%S') + " " + str(current_value) + "\n")
-        c.execute("INSERT INTO usages (feedId, timestamp, power, created_at, updated_at) VALUES ('{0}', '{1}', {2}, '{3}', '{4}')".format(feedId, d.strftime('%Y%m%d %H:%M:%S'), current_value, now.strftime('%Y%m%d %H:%M:%S'), now.strftime('%Y%m%d %H:%M:%S')))
+        c.execute("INSERT INTO usages (feedId, timestamp, power, created_at, updated_at) VALUES ('{0}', '{1}', {2}, '{3}', '{4}')".format(feedId, d.strftime('%Y-%m-%d %H:%M:%S'), current_value, now.strftime('%Y-%m-%d %H:%M:%S'), now.strftime('%Y-%m-%d %H:%M:%S')))
     last = d
     return last
     
