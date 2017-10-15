@@ -8,7 +8,7 @@ import urllib, urllib2
 import json
 import traceback
 
-#logfile = open('log-fetchfrompachube.txt', 'w')
+logfile = open('log-fetchfrompachube.txt', 'a', 0)
 
 def fetchOnePerson(feedId, apiKey, last, conn):
     c = conn.cursor()
@@ -33,9 +33,9 @@ def fetchOnePerson(feedId, apiKey, last, conn):
     now = datetime.datetime.now()
 
     if d != last:
-        print feedId, d, current_value
+        #print feedId, d, current_value
         #logfile.write(feedId + " " + d.strftime('%Y%m%d %H:%M:%S') + " " + str(current_value) + "\n")
-        c.execute("INSERT INTO usages (feedId, timestamp, power, created_at, updated_at) VALUES ('{0}', '{1}', {2}, '{3}', '{4}')".format(feedId, d.strftime('%Y%m%d %H:%M:%S'), current_value, now.strftime('%Y%m%d %H:%M:%S'), now.strftime('%Y%m%d %H:%M:%S')))
+        c.execute("INSERT INTO usages (feedId, timestamp, power, created_at, updated_at) VALUES ('{0}', '{1}', {2}, '{3}', '{4}')".format(feedId, d.strftime('%Y-%m-%d %H:%M:%S'), current_value, now.strftime('%Y-%m-%d %H:%M:%S'), now.strftime('%Y-%m-%d %H:%M:%S')))
     last = d
     return last
     
@@ -71,8 +71,8 @@ if __name__=="__main__":
                     last[each['feedId']] = datetime.datetime(2000, 1, 6, 13, 1, 1)
                 last[each['feedId']] = fetchOnePerson(each['feedId'], each['apiKey'], last[each['feedId']], conn)
             except:
-                print "Unexpected error when fetch feedId = " + each['feedId'] + ":", sys.exc_info()[0]
-                #logfile.write("Unexpected error when fetch feedId = " + each['feedId'] + ": " + traceback.format_exc())
+                #print "Unexpected error when fetch feedId = " + each['feedId'] + ":", sys.exc_info()[0]
+                logfile.write("Unexpected error when fetch feedId = " + each['feedId'] + ": " + traceback.format_exc())
 
         conn.commit()
         time.sleep(10)
