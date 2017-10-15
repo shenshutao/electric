@@ -14,7 +14,8 @@
  *= require_self
  *= require bootstrap.min
  *= require metisMenu.min
- *= require sb-admin-2
+ *= require sb-admin-2.min
  *= require morris
  *= require font-awesome.min
+ *= require bootstrap-datetimepicker
  */

@@ -1,34 +1,172 @@
 <div id="wrapper" data-no-turbolink>
     <%= render "shared/NavMenu" %>
-    
-    <div id="page-wrapper">
-        <div class="row">
-            <div class="col-lg-12 col-md-6">
-                <h1 class="page-header">Electricity Usage History </h1>
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> Electricity Usage (Weekly)
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <i id="current-usage-spinner" aria-hidden="true" class="fa fa-spinner fa-spin" style="font-size:60px;"></i>
-                        <div id="monthly-charts"></div>
-                    </div>
-                    <!-- /.panel-body -->
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12 col-md-6">
+                    <h1 class="page-header">Electricity Usage History </h1>
                 </div>
-                
+                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.col-lg-8 -->
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> All History Electricity Usage Detail (Can be downloaded in csv, xlsx, json or images)
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <i id="current-usage-spinner" aria-hidden="true" class="fa fa-spinner fa-spin" style="font-size:60px;"></i>
+                            <div id="monthly-charts"></div>
+                            <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+                            <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+                            <div id="chartdiv" style="width:100%;height:500px;font-size:11px;"></div>
+                            <script src="/assets/amstock.js"></script>
+                            <script>
+                                $.get("/usages/allrecords", function (data) {
+                                    data = data.replace(/T/g, " ");
+                                    data = data.replace(/Z/g, "");
+                                    var jsonObj = JSON.parse(data);
+                                    var power = jsonObj['power'];
+                                    var usage = jsonObj['usage'];
+                                    var i = 0,
+                                        j = 0;
+                                    while (!(power[i]['timestamp'][11] == '1' && power[i]['timestamp'][12] ==
+                                            '2')) i++;
+                                    while (i < power.length) {
+                                        power[i]['usage'] = usage[j++]['kwh'];
+                                        i += 288;
+                                    }
+                                    $("#current-usage-spinner").hide();
+                                    var chart = AmCharts.makeChart("chartdiv", {
+                                        "type": "stock",
+                                        "theme": "light",
+                                        "dataSets": [{
+                                            "title": "",
+                                            "fieldMappings": [{
+                                                "fromField": "power",
+                                                "toField": "power"
+                                            }, {
+                                                "fromField": "usage",
+                                                "toField": "usage"
+                                            }],
+                                            "dataProvider": power,
+                                            "categoryField": "timestamp"
+                                        }],
+
+                                        "panels": [{
+                                            "showCategoryAxis": false,
+                                            "title": "Power (Average)",
+                                            "percentHeight": 70,
+                                            "stockGraphs": [{
+                                                "id": "g1",
+                                                "valueField": "power",
+                                                "compareField": "power",
+                                                "periodValue": "Average",
+                                                "balloonText": "<b>[[value]] W</b>"
+                                            }],
+                                            "stockLegend": {
+                                                "periodValueTextRegular": " W"
+                                            }
+                                        }, {
+                                            "title": "Usage",
+                                            "percentHeight": 30,
+                                            "stockGraphs": [{
+                                                "id": "g2",
+                                                "valueField": "usage",
+                                                "type": "column",
+                                                "periodValue": "Sum",
+                                                "fillAlphas": 1,
+                                                "balloonText": "<b>[[value]] kWh</b>"
+                                            }],
+                                            "stockLegend": {
+                                                "periodValueTextRegular": " kWh"
+                                            }
+                                        }],
+
+                                        "chartScrollbarSettings": {
+                                            "graph": "g1"
+                                        },
+
+                                        "chartCursorSettings": {
+                                            "valueBalloonsEnabled": true,
+                                            "fullWidth": true,
+                                            "cursorAlpha": 0.1,
+                                            "valueLineBalloonEnabled": true,
+                                            "valueLineEnabled": true,
+                                            "valueLineAlpha": 0.5
+                                        },
+
+                                        "periodSelector": {
+                                            "position": "right",
+                                            "periods": [
+                                                {
+                                                    "period": "hh",
+                                                    "count": 3,
+                                                    "label": "3 hour"
+                                                },
+                                                {
+                                                    "period": "hh",
+                                                    "count": 12,
+                                                    "label": "12 hour"
+                                                },
+                                                {
+                                                    "period": "DD",
+                                                    "count": 1,
+                                                    "label": "1 day"
+                                                },
+                                                {
+                                                    "period": "DD",
+                                                    "selected": true,
+                                                    "count": 7,
+                                                    "label": "7 days"
+                                                },
+                                                {
+                                                    "period": "DD",
+                                                    "selected": true,
+                                                    "count": 14,
+                                                    "label": "14 days"
+                                                },
+                                                {
+                                                    "period": "MM",
+                                                    "count": 1,
+                                                    "label": "1 month"
+                                                }, {
+                                                    "period": "YYYY",
+                                                    "count": 1,
+                                                    "label": "1 year"
+                                                }, {
+                                                    "period": "MAX",
+                                                    "label": "MAX"
+                                                }
+                                            ]
+                                        },
+
+                                        "dataSetSelector": {
+                                            "position": "right"
+                                        },
+                                        "categoryAxesSettings": {
+                                            "minPeriod": "mm" // set minimum to milliseconds
+                                            //"groupToPeriods": [ 'fff', 'ss' ] // specify period grouping
+                                        },
+                                        "export": {
+                                            "enabled": true
+                                        }
+                                    });
+                                });
+                            </script>
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+
+                </div>
+                <!-- /.col-lg-8 -->
+            </div>
+            <!-- /.row -->
         </div>
-        <!-- /.row -->
-    </div>
-    <!-- /page-wrapper -->
-<div style="visibility: hidden;" id="morris-area-chart"></div>
+        <!-- /page-wrapper -->
+        <div style="visibility: hidden;" id="morris-area-chart"></div>
 </div>
 <!-- /wrapper -->

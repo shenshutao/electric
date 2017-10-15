@@ -67,7 +67,8 @@
                 lineWidth: 1,
                 postUnits: "kWh",
                 hideHover: 'false',
-                resize: true
+                resize: true,
+                xLabelAngle: 30
             });
             // Set the visibility of the graph to visible after loaded.
             // $("#morris-area-chart").css("display", "block");

@@ -18,12 +18,13 @@
                                     <i class="fa fa-bolt fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div id="welcome_index_current_value" class="huge">33.25 w</div>
-                                    <div>Your current usage is too high.</div>
+                                    <i id="usage-text-spinner" aria-hidden="true" class="fa fa-spinner fa-spin" style="font-size:28px;"></i>
+                                    <div id="welcome_index_current_value" class="huge"></div>
+                                    <div id="usage-status"></div>
                                 </div>
                             </div>
                         </div>
-                        <a href="/">
+                        <a href="/welcome/statusinfo">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -34,17 +35,24 @@
                     <!--panel-->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            
-                            <button type="button" class="btn btn-default btn-circle"><i class="fa fa-angle-left"></i>
-                            </button>
-
-                            
-                            Power (May 18, 2017 00:00 - 12:00)
-                            <div class="pull-right">
-                            <button type="button" class="btn btn-default btn-circle"><i class="fa fa-angle-right"></i>
-                            </button>
-                            </div>
-                           
+                                <button id="button-previous" type="button" class="btn btn-default btn-circle"><i class="fa fa-angle-left"></i>
+                                </button>
+                                <span id="power-graph-title"><strong>Power</strong></span>
+                                <button id="button-next" type="button" class="btn btn-default btn-circle"><i class="fa fa-angle-right"></i>
+                                </button>
+                                <div class="pull-right">
+   
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        More
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="/welcome/powerdetail">Select a Day</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -57,7 +65,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Your Cost in Past 7 Days
-                             <div class="pull-right">
+                            <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                                         More
