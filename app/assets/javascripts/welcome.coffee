@@ -180,7 +180,7 @@
                     curUseGraph.setData(jsonObj);
                     
                 } else {
-                    document.getElementById("welcome_index_current_value").innerHTML = "Server Error, please contact technical staff.";
+                    document.getElementById("welcome_index_current_value").innerHTML = "198 W"//"Server Error, please contact technical staff.";
                 }
             }
         });

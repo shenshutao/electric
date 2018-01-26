@@ -54,7 +54,8 @@ if __name__=="__main__":
     users = readUsers()
     # record the last edit time of file 'users.csv'
     lasttimefilechange = os.path.getmtime('users.csv')
-    conn = sqlite3.connect('../db/production.sqlite3')
+    #conn = sqlite3.connect('../db/production.sqlite3')
+    conn = sqlite3.connect('../db/development.sqlite3')
     # the last time of data changed for a feedId
     last = {}
     #for each in users:
