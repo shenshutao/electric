@@ -48,8 +48,8 @@
         $("#day-query-button").click(function() {
             $("#power-detail-spinner").show();
             $.get("/usages/peroid?startdate=" + dateToString($("#datetimepicker1").data("DateTimePicker").date().toDate()) + "&enddate=" + dateToString(dateAdd($("#datetimepicker1").data("DateTimePicker").date().toDate(), 'hour', 24)), function(data) {
-            data = data.replace(/T/g," ");
-            data = data.replace(/Z/g, "");
+            // data = data.replace(/T/g," ");
+            // data = data.replace(/Z/g, "");
             var jsonObj = JSON.parse(data);
             console.log(jsonObj);
 
@@ -134,8 +134,8 @@
             graphData = graphData.slice(graphData.length - 145, graphData.length);
             //console.log(JSON.stringify(graphData));
             data = JSON.stringify(graphData);
-            data = data.replace(/T/g," ");
-            data = data.replace(/Z/g, "");
+            //data = data.replace(/T/g," ");
+            //data = data.replace(/Z/g, "");
             var jsonObj = JSON.parse(data);
             
             curUseGraph = Morris.Line({
@@ -174,8 +174,8 @@
                     document.getElementById("welcome_index_current_value").innerHTML = JSON.parse(data)["power"] + " W";
                     graphData[pos] = JSON.parse(data);
                     var temp = JSON.stringify(graphData);
-                    temp = temp.replace(/T/g," ");
-                    temp = temp.replace(/Z/g, "");
+                    //temp = temp.replace(/T/g," ");
+                    //temp = temp.replace(/Z/g, "");
                     var jsonObj = JSON.parse(temp);
                     curUseGraph.setData(jsonObj);
                     
@@ -225,19 +225,19 @@
                 alert("No more data before this time peroid.");
                 return;
             }
-            data = data.replace(/T/g," ");
-            data = data.replace(/Z/g, "");
+            //data = data.replace(/T/g," ");
+            //data = data.replace(/Z/g, "");
             var jsonObj = JSON.parse(data);
             curUseGraph.setData(jsonObj);
         });
-        $("#power-graph-title").html("<strong>Power ( </strong>" + dateToString(displayTime) + " <strong>to</strong> " + dateToString(dateAdd(displayTime, 'hour', 12)) + "<strong> )</strong>");
+        $("#power-graph-title").html("<strong>Power ( </strong>" + displayTime.toLocaleString() + " <strong>to</strong> " + dateAdd(displayTime, 'hour', 12).toLocaleString() + "<strong> )</strong>");
     });
     $("#button-next").click(function() {
         displayTime = dateAdd(displayTime, 'hour', 12);
         buttonCount--;
         $.get("/usages/peroid?startdate=" + dateToString(displayTime) + "&enddate=" + dateToString(dateAdd(displayTime, 'hour', 12)), function(data) {
-            data = data.replace(/T/g," ");
-            data = data.replace(/Z/g, "");
+            //data = data.replace(/T/g," ");
+            //data = data.replace(/Z/g, "");
             var jsonObj = JSON.parse(data);
             if (buttonCount == 0) {
                 var D1 = new Date(jsonObj[jsonObj.length-1]['timestamp']);
@@ -247,7 +247,7 @@
                 }
             }
             curUseGraph.setData(jsonObj);
-            $("#power-graph-title").html("<strong>Power ( </strong>" + dateToString(displayTime) + " <strong>to</strong> " + dateToString(dateAdd(displayTime, 'hour', 12)) + "<strong> )</strong>");
+            $("#power-graph-title").html("<strong>Power ( </strong>" + displayTime.toLocaleString() + " <strong>to</strong> " + dateAdd(displayTime, 'hour', 12).toLocaleString() + "<strong> )</strong>");
         });
 
         if (buttonCount == 0) {
