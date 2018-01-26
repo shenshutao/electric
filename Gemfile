@@ -55,3 +55,6 @@ gem 'tzinfo-data'
 # For bootstrap datetime-picker
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
+
+# For multi-language support
+gem 'rails-i18n', '~> 5.0.0'
