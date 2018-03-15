@@ -6,10 +6,11 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :passwordKey
       t.float :price
       t.string :groupNum
-      t.float :goal
+      t.string :goal
       t.string :lastname
       t.string :whatsapp
       t.string :email
+      t.string :locale
 
       t.timestamps
     end

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'welcome/statusinfo'
   get 'welcome/powerdetail'
   get 'welcome/firstpage'
+  get 'welcome/setting'
   get 'week_history/index'
   get 'month_history/index'
   get 'feedback/index'

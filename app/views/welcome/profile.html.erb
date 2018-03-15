@@ -10,36 +10,36 @@
                 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-info fa-fw"></i> User Profile
+                        <i class="fa fa-info fa-fw"></i> <%= t('User Profile') %>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                     <div class="col-lg-6">
                     <form role="form">
-                                        <fieldset disabled>
-                                            <div class="form-group">
-                                            <% @user.each do |user| %>
-                                                <label> Feed Id </label>
-                                                <input class="form-control"  type="text" placeholder= "<%= user.feedId %>" disabled>
-                                                <label> API Key </label>
-                                                <input class="form-control"  type="text" placeholder= "<%= user.apiKey %>" disabled>
-                                                <label> passwordKey </label>
-                                                <input class="form-control"  type="text" placeholder= "<%= user.passwordKey %>" disabled>
-                                                <label> price </label>
-                                                <input class="form-control"  type="text" placeholder= "<%= user.price %>" disabled>
-                                                <label> group </label>
-                                                <input class="form-control"  type="text" placeholder= "<%= user.groupNum %>" disabled>
-                                                <label> lastname </label>
-                                                <input class="form-control"  type="text" placeholder= "<%= user.lastname %>" disabled>
-                                                <label> whatsapp </label>
-                                                <input class="form-control"  type="text" placeholder= "<%= user.whatsapp %>" disabled>
-                                                <label> email </label>
-                                                <input class="form-control"  type="text" placeholder= "<%= user.email %>" disabled>
-                                            <% end %>
-                                            </div>
-                                            
-                                        </fieldset>
-                                    </form>
+                        <fieldset disabled>
+                            <div class="form-group">
+                            <% @user.each do |user| %>
+                                <label> <%= t('Feed Id') %> </label>
+                                <input class="form-control"  type="text" placeholder= "<%= user.feedId %>" disabled>
+                                <label> <%= t('API Key') %> </label>
+                                <input class="form-control"  type="text" placeholder= "<%= user.apiKey %>" disabled>
+                                <label> <%= t('Password Key') %> </label>
+                                <input class="form-control"  type="text" placeholder= "<%= user.passwordKey %>" disabled>
+                                <label> <%= t('Price') %> </label>
+                                <input class="form-control"  type="text" placeholder= "<%= user.price %>" disabled>
+                                <label> <%= t('Group') %> </label>
+                                <input class="form-control"  type="text" placeholder= "<%= user.groupNum %>" disabled>
+                                <label> <%= t('Name') %> </label>
+                                <input class="form-control"  type="text" placeholder= "<%= user.lastname %>" disabled>
+                                <label> <%= t('Whatsapp') %> </label>
+                                <input class="form-control"  type="text" placeholder= "<%= user.whatsapp %>" disabled>
+                                <label> <%= t('Email') %> </label>
+                                <input class="form-control"  type="text" placeholder= "<%= user.email %>" disabled>
+                            <% end %>
+                            </div>
+                            
+                        </fieldset>
+                    </form>
                     </div>
                     </div>
                     <!-- /.panel-body -->

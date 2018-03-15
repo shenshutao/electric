@@ -32,6 +32,29 @@
         return date.getFullYear() + "-" + ((date.getMonth() + 1) < 10 ? ("0" + (date.getMonth() + 1)):(date.getMonth() + 1)) + "-" + ((date.getDate()) < 10 ? ("0" + date.getDate()):(date.getDate())) + " " + date.toLocaleTimeString('en-US', {hour12:false});
     }
 
+    if ($(location).attr('pathname') == '/welcome/setting') {
+        $.get("/welcome/setting?setLang=what", function(data) {
+            var jsonObj = JSON.parse(data);
+            if (jsonObj.locale == "cn") {
+                $("#option1").attr("class", "btn btn-default");
+                $("#option2").attr("class", "btn btn-default active");
+            } else if (jsonObj.locale == "en") {
+                $("#option1").attr("class", "btn btn-default active");
+                $("#option2").attr("class", "btn btn-default");
+            }
+        });
+
+        // When click on the button, set to the language.
+        $("#language-btn-group").find("label").click(function(){
+            //console.log($(this).attr("id"));
+            if ($(this).attr("id") == "option1") {
+                $.get("/welcome/setting?setLang=en", function(data){location.reload();});
+            } else if ($(this).attr("id") == "option2") {
+                $.get("/welcome/setting?setLang=cn", function(data){location.reload();});
+            }
+        });
+    }
+
     if ($(location).attr('pathname') == '/welcome/powerdetail') {
         $(function () {
             $('#datetimepicker1').datetimepicker({
@@ -189,7 +212,7 @@
 
     $.get("/usages/last7days", function(data) {
         var jsonObj = JSON.parse(data);
-        console.log(jsonObj);
+        //console.log(jsonObj);
         last7daysGraph = Morris.Bar({
             element: 'last7days-chart', 
             data: jsonObj,

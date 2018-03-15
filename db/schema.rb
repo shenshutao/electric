@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504033344) do
+ActiveRecord::Schema.define(version: 20180124224913) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -33,10 +33,11 @@ ActiveRecord::Schema.define(version: 20170504033344) do
     t.string   "passwordKey"
     t.float    "price"
     t.string   "groupNum"
-    t.float    "goal"
+    t.string   "goal"
     t.string   "lastname"
     t.string   "whatsapp"
     t.string   "email"
+    t.string   "locale"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

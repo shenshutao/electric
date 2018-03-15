@@ -3,7 +3,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12 col-md-6">
-                    <h1 class="page-header">Whats's the meanings of red, yellow and green colors ? </h1>
+                    <h1 class="page-header"><%= t('What\'s the meanings of red, yellow and green colors ?') %> </h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -15,14 +15,14 @@
                     <!--panel-->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Power Status
+                           <%= t('Power Status') %>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
 
                             <div class="well">
-                            <h4>Our system help you judge the power usage.</h4>
-                            <p>We have compared your current power usage to your history average usage at the same hour. And decide whether your current usage is high or not according to your weely goal. If your current usage is high, we will display the red background. If your current usage is low, we will display the green background. The orange background implies your current usage is roughly around your goal.</p>
+                            <h4><%= t('Our system help you judge the power usage') %></h4>
+                            <p><%= t('We have compared your') %></p>
                             </div>
 
                             <!--The Red block-->
@@ -34,14 +34,14 @@
                                         </div>
                                         <div class="col-xs-9 text-right">
                                             
-                                            <div class="huge">(Example) 3000 W</div>
-                                            <div> Current Usage: too high. </div>
+                                            <div class="huge">(<%= t('Example') %>) 3000 W</div>
+                                            <div> <%= t('Current Usage') %>: <%= t('too high') %> </div>
                                         </div>
                                     </div>
                                 </div>
                                 <a href="/">
                                     <div class="panel-footer">
-                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-left"><%= t('View Details') %></span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                         <div class="clearfix"></div>
                                     </div>
@@ -49,7 +49,7 @@
                             </div>
                             <!-- /.red block-->
 
-                            <p>This suggests that your current power usage is relatively high. If you always in this status, then you will unlikely to achieve you goal.</p>
+                            <p><%= t('This suggests that your current power usage is relatively high') %></p>
                             <div style="height: 30px;"></div>
 
                             <!--The yellow block-->
@@ -61,14 +61,14 @@
                                         </div>
                                         <div class="col-xs-9 text-right">
                                             
-                                            <div class="huge">(Example) 1000 W</div>
-                                            <div> Current Usage: fair </div>
+                                            <div class="huge">(<%= t('Example') %>) 1000 W</div>
+                                            <div> <%= t('Current Usage') %>: <%= t('fair') %> </div>
                                         </div>
                                     </div>
                                 </div>
                                 <a href="/">
                                     <div class="panel-footer">
-                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-left"><%= t('View Details') %></span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                         <div class="clearfix"></div>
                                     </div>
@@ -76,7 +76,7 @@
                             </div>
                             <!-- /.yellow block-->
 
-                            <p>Your current power usage is neither high nor low. </p>
+                            <p><%= t('Your current power usage is neither high nor low.') %> </p>
                             <div style="height: 30px;"></div>
 
                             <!--The green block-->
@@ -88,21 +88,21 @@
                                         </div>
                                         <div class="col-xs-9 text-right">
                                             
-                                            <div class="huge">(Example) 100 W</div>
-                                            <div> Current Usage: low </div>
+                                            <div class="huge">(<%= t('Example') %>) 100 W</div>
+                                            <div> <%= t('Current Usage') %>: <%= t('low') %> </div>
                                         </div>
                                     </div>
                                 </div>
                                 <a href="/">
                                     <div class="panel-footer">
-                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-left"><%= t('View Details') %></span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                         <div class="clearfix"></div>
                                     </div>
                                 </a>
                             </div>
                             <!-- /.green block-->
-                            <p>This suggests that your current power usage is relatively low. If you always in this status, then you will very likely to achieve you goal.</p>
+                            <p><%= t('This suggests that your current power usage is relatively low') %></p>
                             <div style="height: 30px;"></div>
 
 

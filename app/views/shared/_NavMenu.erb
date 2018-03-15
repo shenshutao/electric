@@ -7,7 +7,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand" href="/">Social Electricity Platform</a>
+            <a class="navbar-brand" href="/"><%= t('Household Electricity Platform') %> </a>
         </div>
         <!-- /.navbar-header -->
 
@@ -22,14 +22,14 @@
                     <i class="fa fa-table fa-fw"></i> 
                 </a>
             </li>
-            <li class="dropdown">
+            <li-- class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-bar-chart-o fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="/week_history/index"> Weekly History</a>
-                    </li>
-                    <li><a href="/month_history/index"> History Detail View</a>
+                    <!--li><a href="/week_history/index"> <%= t('Weekly Consumption') %></a>
+                    </li-->
+                    <li><a href="/month_history/index"> <%= t('History')%></a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -40,12 +40,12 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="/welcome/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="/welcome/profile"><i class="fa fa-user fa-fw"></i> <%= t('User Profile') %></a>
                     </li>
-                    <li><a href="/"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="/welcome/setting"><i class="fa fa-gear fa-fw"></i>  <%= t('Language') %></a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="/onetime_login/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="/onetime_login/logout"><i class="fa fa-sign-out fa-fw"></i>  <%= t('Logout') %></a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -69,25 +69,25 @@
                         <!-- /input-group -->
                     <!--/li-->
                     <li>
-                        <a href="/"><i class="fa fa-dashboard fa-fw"></i> Real Time Statistics</a>
+                        <a href="/"><i class="fa fa-dashboard fa-fw"></i> <%= t('Real Time Statistics') %></a>
                     </li>
                     <li>
-                        <a href="/your_goal/index"><i class="fa fa-table fa-fw"></i> Your Goal</a>
+                        <a href="/your_goal/index"><i class="fa fa-table fa-fw"></i> <%= t('Goal Page') %></a>
                     </li>
                     <li>
-                        <a href="/"><i class="fa fa-bar-chart-o fa-fw"></i> History<span class="fa arrow"></span></a>
+                        <a href="/"><i class="fa fa-bar-chart-o fa-fw"></i> <%= t('History Page') %><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
+                            <!--li>
+                                <a href="/week_history/index"><%= t('Weekly Consumption') %></a>
+                            </li-->
                             <li>
-                                <a href="/week_history/index">Weely History</a>
-                            </li>
-                            <li>
-                                <a href="/month_history/index">History Detail View</a>
+                                <a href="/month_history/index"><%= t('History') %></a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="/feedback/index"><i class="fa fa-edit fa-fw"></i> Survey </a>
+                        <a href="/feedback/index"><i class="fa fa-edit fa-fw"></i> <%= t('Survey') %> </a>
                     </li>
                 </ul>
             </div>

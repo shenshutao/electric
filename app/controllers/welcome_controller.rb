@@ -12,7 +12,25 @@ class WelcomeController < ApplicationController
         render plain:  "You haven't log in."
     end
     @user = User.where("feedId = ?", session[:current_user_id]).limit(1);
-    puts @user[0].feedId
+  end
+
+  def setting
+    if session[:current_user_id].nil?
+      render plain:  "You haven't log in."
+    end
+    user = User.find_by(feedId: session[:current_user_id]);
+    if params['setLang'] != nil
+      puts params['setLang']
+      if params['setLang'] == "what"
+        # render is equvalent to return.
+        render plain: user.to_json
+        return
+      end
+      user.locale = params['setLang']
+      I18n.locale = params['setLang']
+      user.save
+      render plain: user.to_json
+    end
   end
 
   def powerdetail

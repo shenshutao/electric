@@ -1,0 +1,62 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+cn:
+  hello: "你好"
+  Household Electricity Platform: "家用能耗监测平台"
+  Real Time Statistics: "实时数据"
+  Goal Page: "节电目标"
+  History Page: "历史数据"
+  History: "全部数据"
+  Weekly Consumption: "每周用电"
+  Survey: "问卷"
+  User Profile: "我的信息"
+  Language: "Language"
+  Logout: "退出"
+  Settings: "设置"
+  Feed Id: "Feed Id"
+  API Key: "API Key"
+  Password Key: "登录密码"
+  Price: "电价（S$/kwh）"
+  Group: "分组"
+  Name: "名称"
+  Whatsapp: "Whatsapp"
+  Email: "电子邮件"
+  Real Time Usage: "实时用电情况"
+  View Details: "查看详情"
+  Electricity: "用电"
+  Your Consumption in the Past 7 Days: "过去7天用电量"
+  Date: "日期"
+  More: "更多"
+  Electricity Usage History: "历史用电数据"
+  All History Electricity Usage Detail (Can be downloaded in csv, xlsx, json or images): "全部用电历史数据详情（可下载为csv，xlsx，josn或图片格式）"
+  What's the meanings of red, yellow and green colors ?: "红，黄，绿显示框分别代表什么意义？"
+  Power Status: "用电状况"
+  Our system help you judge the power usage: "我们的系统将帮助你判断用电使用情况。"
+  We have compared your: "我们同时比较了您当前的用电量和历史平均使用量。 如果您目前的用电量高于您的每周目标，红色标签会显示在您的使用状态中，我们将显示红色背景。 如果您当前的用电量低于您的每周目标，则绿色标签会显示在您的使用状态中，我们将显示绿色背景。 橙色的标签背景意味着您目前的和您的目标大致相当。"
+  Example: "示例"
+  Current Usage: "当前用电"
+  too high: "太高" 
+  fair: "正常"
+  low: "较低"
+  This suggests that your current power usage is relatively high: "这表明您目前的用电量比较高。 如果您一直处于这种状态，那么您就需要更加努力才能达到目标。"
+  Your current power usage is neither high nor low: "您当前的用电量大致在您的目标范围内。"
+  This suggests that your current power usage is relatively low: "这表明您当前的用电量低于您的平均使用量。 继续努力，您将会实现您的目标。"
